@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: "Poppins", sans-serif;
+	box-sizing: border-box;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #f5f5f5;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	padding: 15px 2%;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+header img {
+	width: 32px;
+}
+
+.hdr1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.hdr1 h2 {
+	font-size: clamp(14px, 2vw, 20px);
+	font-weight: 600;
+	color: #333;
+}
+
+.hdr2 {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.hdr2 div {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.hdr2 p {
+	font-size: 14px;
+	color: #444;
+}
+
+@media (max-width: 768px) {
+	header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.hdr1 {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.hdr1 h2 {
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.hdr2 {
+		width: 100%;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	.hdr2 p {
+		font-size: 13px;
+	}
+}
+
+@media (max-width: 480px) {
+	.hdr1 h2 {
+		font-size: 14px;
+	}
+
+	.hdr2 {
+		flex-direction: column;
+		gap: 8px;
+	}
+}
