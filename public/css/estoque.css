@@ -149,6 +149,7 @@ table {
 	width: 100%;
 	max-width: 1000px;
 	border-collapse: collapse;
+	border: none;
 	background-color: #ffffff;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -238,16 +239,60 @@ td:last-child {
 	border-color: #bd2130;
 }
 
-/* Icon-like appearance for buttons as seen in the image */
 .btn-editar::before {
-	content: "✏️"; /* Unicode for pencil icon */
+	content: "✏️";
 	margin-right: 5px;
 }
 
 .btn-excluir::before {
-	content: "🗑️"; /* Unicode for trash can icon */
+	content: "🗑️";
 	margin-right: 5px;
 }
+body {
+	position: relative;
+}
+.modalCadBox {
+	border: 2px solid red;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	display: flex;
+	height: 100vh;
+	backdrop-filter: blur(2px);
+	align-items: center;
+	justify-content: center;
+}
+.modalCadBox.hidden {
+	display: none;
+}
+.modalCad {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	padding: 2% 10%;
+	border: 2px solid black;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.cadHead {
+	display: flex;
+
+	& img {
+		width: 24px;
+	}
+	& .btn-close {
+		background-color: #000000;
+		border: none;
+		padding: 5px 5px;
+		border-radius: 5px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		transition: background-color 0.3s ease;
+	}
+}
+
 /* media queries para responsividade */
 @media (max-width: 768px) {
 	header {
@@ -303,6 +348,9 @@ td:last-child {
 	.add-button {
 		width: 100%;
 		justify-content: center;
+	}
+	.btn-editar {
+		margin: 0;
 	}
 	/* centralizando a secao pai da tabela para em telas menores nao cortar o campo do nome */
 	.middle {

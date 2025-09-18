@@ -74,7 +74,42 @@ if (!isset($_SESSION['usuario'])) {
                     </tbody>
                 </table>
             </section>
-
+            <section class="modalCadBox">
+                <div class="modalCad">
+                    <div class="cadHead">
+                        <h1>Adicionar Produto</h1>
+                        <button class="btn-close">
+                            <img src="../../public/imagens/addIcon.png" alt="">
+                        </button>
+                    </div>
+                    <div class="cadMiddle">
+                        <form action="" method="post">
+                            <label for="Nome">Nome do Produto</label>
+                            <input type="text" name="nome">
+                            <div class="form-mid">
+                                <label for="sku">SKU</label>
+                                <input type="text" name="sku">
+                                <label for="categoria">Categoria</label>
+                                <input type="text" name="categoria">
+                                <label for="preco">Preço</label>
+                                <input type="text" name="preco">
+                                <label for="estoque">Quantidade em Estoque</label>
+                                <input type="text" name="quantidade">
+                            </div>
+                            <label for="fornecedor">Fornecedor</label>
+                            <input type="text" name="fornecedor">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" name="descricao">
+                            <p>Inclua informações como material, dimensões ou cuidados.</p>
+                        </form>
+                    </div>
+                    <div class="cadEnd">
+                        <button>Limpar</button>
+                        <button>Cancelar</button>
+                        <button>Salvar produto</button>
+                    </div>
+                </div>
+            </section>
 
 </body>
 </html>
