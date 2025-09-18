@@ -23,6 +23,11 @@ header img {
 	width: 32px;
 }
 
+#sair {
+	display: flex;
+	align-items: center;
+}
+
 .hdr1 {
 	display: flex;
 	align-items: center;
@@ -53,6 +58,197 @@ header img {
 	color: #444;
 }
 
+.produtos-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #ffffff;
+	padding: 20px 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.produtos-header h1 {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+}
+
+.right {
+	display: flex;
+	gap: 20px;
+}
+
+.search-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.search-container input {
+	padding: 10px 15px 10px 40px;
+	border: 1px solid #e0e0e0;
+	border-radius: 20px;
+	font-size: 14px;
+	width: 300px;
+	transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+	outline: none;
+	border-color: #007bff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.search-container::before {
+	content: "\1F50D"; /* Ícone de lupa Unicode */
+	font-family: "Segoe UI Symbol", "Apple Color Emoji", "Segoe UI Emoji",
+		"Noto Color Emoji";
+	position: absolute;
+	left: 15px;
+	color: #a0a0a0;
+}
+
+.add-button {
+	background-color: #1abc9c;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+	background-color: #16a085;
+}
+
+.add-button::before {
+	content: "+";
+	font-size: 18px;
+	font-weight: bold;
+}
+/* Aqui começa o estilo da GRID dos produtos */
+.middle {
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: 100vh;
+	margin: 0;
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	max-width: 1000px;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+/* Table header (thead) styling */
+thead {
+	background-color: #f8f9fa;
+	border-bottom: 2px solid #e0e0e0;
+}
+
+thead th {
+	font-weight: bold;
+	color: #495057;
+	text-align: left;
+	padding: 16px 24px;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+/* Table body (tbody) and rows */
+tbody tr {
+	border-bottom: 1px solid #e9ecef;
+	transition: background-color 0.2s ease;
+}
+
+tbody tr:last-child {
+	border-bottom: none;
+}
+
+tbody tr:hover {
+	background-color: #f1f3f5;
+}
+
+tbody td {
+	padding: 12px 24px;
+	font-size: 15px;
+	color: #333;
+	vertical-align: middle;
+}
+
+td:last-child {
+	white-space: nowrap;
+	display: flex;
+	border: none;
+	justify-content: center;
+}
+
+.btn-editar,
+.btn-excluir {
+	text-decoration: none;
+	color: #ffffff;
+	font-size: 14px;
+	padding: 8px 16px;
+	border-radius: 4px;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Edit button styling */
+.btn-editar {
+	background-color: #ffffff;
+	color: #6c757d;
+	border: 1px solid #ced4da;
+	margin-right: 8px;
+	font-size: 14px;
+}
+
+.btn-editar:hover {
+	background-color: #e2e6ea;
+	border-color: #dae0e5;
+}
+
+/* Excluir (Delete) button styling */
+.btn-excluir {
+	background-color: #dc3545;
+	color: #ffffff;
+	border: 1px solid #dc3545;
+}
+
+.btn-excluir:hover {
+	background-color: #c82333;
+	border-color: #bd2130;
+}
+
+/* Icon-like appearance for buttons as seen in the image */
+.btn-editar::before {
+	content: "✏️"; /* Unicode for pencil icon */
+	margin-right: 5px;
+}
+
+.btn-excluir::before {
+	content: "🗑️"; /* Unicode for trash can icon */
+	margin-right: 5px;
+}
+/* media queries para responsividade */
 @media (max-width: 768px) {
 	header {
 		flex-direction: column;
@@ -78,6 +274,47 @@ header img {
 	.hdr2 p {
 		font-size: 13px;
 	}
+
+	.produtos-header {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 20px;
+	}
+
+	.produtos-header h1 {
+		font-size: 20px;
+		margin-bottom: 15px;
+	}
+
+	.right {
+		flex-direction: column;
+		width: 100%;
+		gap: 15px;
+	}
+
+	.search-container {
+		width: 100%;
+	}
+
+	.search-container input {
+		width: 100%;
+	}
+
+	.add-button {
+		width: 100%;
+		justify-content: center;
+	}
+	/* centralizando a secao pai da tabela para em telas menores nao cortar o campo do nome */
+	.middle {
+		padding-inline: 5%;
+		justify-content: normal;
+	}
+	/* retira espaço extra da secao dos botoes de editar e excluir*/
+	/* e coloca em coluna para diminuir o tamanho da tabela */
+	td:last-child {
+		white-space: unset;
+		flex-direction: column;
+	}
 }
 
 @media (max-width: 480px) {
@@ -88,5 +325,27 @@ header img {
 	.hdr2 {
 		flex-direction: column;
 		gap: 8px;
+	}
+
+	.produtos-header {
+		padding: 15px;
+	}
+
+	.produtos-header h1 {
+		font-size: 18px;
+	}
+
+	.search-container input {
+		font-size: 12px;
+		padding: 8px 10px 8px 35px;
+	}
+
+	.search-container::before {
+		left: 10px;
+	}
+
+	.add-button {
+		font-size: 12px;
+		padding: 8px 15px;
 	}
 }

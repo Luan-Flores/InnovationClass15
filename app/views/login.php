@@ -1,7 +1,6 @@
 <?php
-session_start();
 if (isset($_SESSION['usuario'])) {
-    header("Location: estoque.php");
+    header("Location: ./estoque.php");
     exit;
 }
 ?>
@@ -34,19 +33,20 @@ if (isset($_SESSION['usuario'])) {
                 Entrar
                 </button>
 
-                <!-- exibir mensagem de erro condicional -->
-                <?php if (isset($_SESSION['erro'])): ?> 
-                    <div id="error-message">
-                        <p> <?php echo $_SESSION['erro']; ?> </p>
-                        <?php unset($_SESSION['erro']); ?>
+                 <!-- exibir mensagem de erro condicional -->
+                <?php if (isset($_SESSION['erro'])):   ?>
+                     <div id="error-message">
+                        <p><?php echo $_SESSION['erro'] ?></p>
                     </div>
                 <?php endif; ?>
+                
+               
                 <p class="forgot-password">
                 Esqueceu sua senha? Contate o administrador.
                 </p>
             </form>
         </div>
     </section>
-    <script src="../../public/js/login.js"></script>
+
 </body>
 </html>

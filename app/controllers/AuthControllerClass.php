@@ -1,24 +1,23 @@
 <?php
 session_start();
-require_once "../config/database.php";
 require_once "../models/Usuario.php";
 
 class AuthController {
     public function login() {
-        $pdo = Banco::connect();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $usuario = $_POST['usuario'];
             $senha   = $_POST['senha'];
             
-            $user = Usuario::autenticar($pdo, $usuario, $senha);
+            $user = new Usuario;
+            $user_dados = $user->autenticar($usuario, $senha);
             
-            if ($user) {
-                $_SESSION['usuario'] = $user['usuario']; 
-                header("Location: ../views/estoque.php");
+            if ($user_dados) {
+                $_SESSION['usuario'] = $user_dados['usuario']; 
+                header("Location: ../controllers/ProdutoController.php?action=index");
                 exit;
             } else {
-                echo "Erro teste";
                 $_SESSION['erro'] = "Credenciais inválidas. Verifique usuário e senha.";
                 require "../views/login.php"; // renderiza view com erro
             }
