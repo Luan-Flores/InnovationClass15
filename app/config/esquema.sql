@@ -7,6 +7,8 @@ CREATE TABLE usuarios (
   senha VARCHAR(255) NOT NULL
 );
 
+INSERT INTO usuarios (usuario, senha) VALUES ('123','123');
+
 CREATE TABLE produtos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
@@ -16,3 +18,5 @@ CREATE TABLE produtos (
   fornecedor VARCHAR(100) NOT NULL,
   descricao VARCHAR(200) NOT NULL
 );
+
+

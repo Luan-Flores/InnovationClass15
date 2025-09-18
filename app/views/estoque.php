@@ -1,5 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +26,11 @@
                 <p>Conectado</p>
             </div>
             <div class="logout">
-                <img src="../../public/imagens/logout.png" alt="Conectado">
-                <p>Sair</p>
-            </div>
+                <a href="../controllers/AuthController.php?action=logout">
+                    <img src="../../public/imagens/logout.png" alt="Sair">
+                    <p>Sair</p>
+                </a>
+                </div>
 
         </div>
     </header>

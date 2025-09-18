@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['usuario'])) {
+    header("Location: estoque.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,22 +23,24 @@
             <p>Acesse sua conta para gerenciar o estoque</p>
         </div>
         <div class="middle">
-            <form action="#" method="post" id="login">
+            <form action="../controllers/AuthController.php?action=login" method="POST" id="login">
                 <label for="usuario">Usuário</label>
-                <input type="text" id="usuario" placeholder="nomedousuario" required>
+                <input type="text" id="usuario" name="usuario" placeholder="nomedousuario" required>
 
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="••••••••" required>
+                <input type="password" id="senha" name="senha" placeholder="••••••••" required>
 
                 <button type="submit" class="btn-login">
                 Entrar
                 </button>
 
-                <!-- Mensagem de erro condicional -->
-                <div id="error-message">
-                Credenciais inválidas. Verifique usuário e senha.
-                </div>
-
+                <!-- exibir mensagem de erro condicional -->
+                <?php if (isset($_SESSION['erro'])): ?> 
+                    <div id="error-message">
+                        <p> <?php echo $_SESSION['erro']; ?> </p>
+                        <?php unset($_SESSION['erro']); ?>
+                    </div>
+                <?php endif; ?>
                 <p class="forgot-password">
                 Esqueceu sua senha? Contate o administrador.
                 </p>
