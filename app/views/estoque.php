@@ -66,7 +66,15 @@ if (!isset($_SESSION['usuario'])) {
                         <td><?= htmlspecialchars($p['quantidade']) ?></td>
                         <td>R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
                         <td>
-                            <button class="btn-editar"></button>
+                            <button data-id="<?= $p['id'] ?>" 
+                                data-nome="<?= htmlspecialchars($p['nome']) ?>" 
+                                data-sku="<?= htmlspecialchars($p['sku']) ?>" 
+                                data-quantidade="<?= htmlspecialchars($p['quantidade']) ?>" 
+                                data-preco="<?= number_format($p['preco'], 2, ',', '.') ?>"
+                                data-categoria="<?= htmlspecialchars($p['categoria'])?>" 
+                                data-fornecedor="<?= htmlspecialchars($p['fornecedor'])?>" 
+                                data-descricao="<?= htmlspecialchars($p['descricao'])?>" 
+                                class="btn-editar"></button>
                             <!-- ainda no loop, passamos como atributo para o botao editar os valores dos produtos, para exibir no modal de edição as informações dinamicamente -->
                             <button data-id="<?= $p['id'] ?>" 
                                 data-nome="<?= htmlspecialchars($p['nome']) ?>" 
@@ -119,9 +127,50 @@ if (!isset($_SESSION['usuario'])) {
                         </form>
                     </div>
                     <div class="cadEnd">
-                        <button id="btn-limpar">Limpar</button>
-                        <button id="btn-cancelar">Cancelar</button>
-                        <button form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
+                        <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                        <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+                        <button class="btn-salvar" form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
+                    </div>
+                </div>
+            </section>
+            <section class="modalEditBox hidden">
+                <div class="modalEdit">
+                    <div class="editHead">
+                        <h1>Editar Produto</h1>
+                        <button class="btn-close">
+                            <img src="../../public/imagens/close.png" alt="">
+                        </button>
+                    </div>
+                    <div class="editMiddle">
+                        <form class="formModel" id="editFormModel" action="../controllers/ProdutoController.php?action=edit" method="patch">
+                            <!-- required em todos os input, como são poucas informaçoes, optei por deixar obrigatório, também segue a estrutura do banco (NOT NULL) -->
+                            <label for="Nome">Nome do Produto</label>
+                            <input type="text" id="nomeProd" name="nome" required>
+                            <div class="form-mid">
+                                <div class="form-mid-1">
+                                    <label for="sku">SKU</label>
+                                    <input id="skuProd" type="text" name="sku" required>
+                                    <label for="categoria">Categoria</label>
+                                    <input id="categoriaProd" type="text" name="categoria" required>
+                                </div>
+                                <div class="form-mid-2">
+                                    <label for="preco">Preço</label>
+                                    <input id="precoProd" type="text" name="preco" required>
+                                    <label for="estoque">Quantidade em Estoque</label>
+                                    <input id="quantidadeProd" type="text" name="quantidade" required>
+                                </div>
+                            </div>
+                            <label for="fornecedor">Fornecedor</label>
+                            <input id="fornecedorProd" type="text" name="fornecedor">
+                            <label for="descricao">Descrição</label>
+                            <textarea type="text" id="inputDescEdit" name="descricao"></textarea>
+                            <p id="p-desc">Inclua informações como material, dimensões ou cuidados.</p>
+                        </form>
+                    </div>
+                    <div class="editEnd">
+                        <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                        <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+                        <button class="btn-salvar" form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
                     </div>
                 </div>
             </section>

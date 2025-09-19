@@ -1,5 +1,6 @@
 // selecionando o modalCad e os botões de interação
 const modalCad = document.querySelector(".modalCadBox");
+const modalEdit = document.querySelector(".modalEditBox");
 const modalDel = document.querySelector(".modalDelBox");
 const btnClose = document.querySelector(".btn-close");
 const btnDelClose = document.querySelector(".btn-del-close");
@@ -7,6 +8,7 @@ const btnDelCancel = document.querySelector(".btn-del-cancel");
 const btnCancel = document.querySelector("#btn-cancelar");
 const btnCadastrar = document.querySelector(".add-button");
 const btnDeletar = document.querySelector(".btn-excluir");
+const btnEdit = document.querySelector(".btn-editar");
 
 btnClose.addEventListener("click", () => {
 	// adicionando a classe 'hidden' ao modalCad (para esconder ao clicar no fechar ou cancelar)
@@ -20,6 +22,9 @@ btnCancel.addEventListener("click", () => {
 btnCadastrar.addEventListener("click", () => {
 	modalCad.classList.remove("hidden");
 });
+btnEdit.addEventListener("click", () => {
+	modalEdit.classList.remove("hidden");
+});
 
 //para o modal de deletar
 btnDelClose.addEventListener("click", () => {
@@ -27,6 +32,29 @@ btnDelClose.addEventListener("click", () => {
 });
 btnDelCancel.addEventListener("click", () => {
 	modalDel.classList.add("hidden");
+});
+
+const allBtnEdit = document.querySelectorAll(".btn-editar");
+
+allBtnEdit.forEach((btn) => {
+	btn.addEventListener("click", () => {
+		const id = btn.getAttribute("data-id");
+		const nome = btn.getAttribute("data-nome");
+		const quantidade = btn.getAttribute("data-quantidade");
+		const sku = btn.getAttribute("data-sku");
+		const preco = btn.getAttribute("data-preco");
+		const categoria = btn.getAttribute("data-categoria");
+		const fornecedor = btn.getAttribute("data-fornecedor");
+		const descricao = btn.getAttribute("data-descricao");
+
+		modalEdit.querySelector("#nomeProd").defaultValue = nome;
+		modalEdit.querySelector("#skuProd").defaultValue = sku;
+		modalEdit.querySelector("#precoProd").defaultValue = preco;
+		modalEdit.querySelector("#categoriaProd").defaultValue = categoria;
+		modalEdit.querySelector("#quantidadeProd").defaultValue = quantidade;
+		modalEdit.querySelector("#fornecedorProd").defaultValue = fornecedor;
+		modalEdit.querySelector("#inputDescEdit").defaultValue = descricao;
+	});
 });
 
 const allBtnDelete = document.querySelectorAll(".btn-excluir");

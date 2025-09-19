@@ -414,6 +414,7 @@ body {
 .modalCadBox.hidden {
 	display: none;
 }
+.modalEdit,
 .modalCad {
 	display: flex;
 	flex-direction: column;
@@ -425,6 +426,7 @@ body {
 		color: #737373;
 	}
 }
+.editHead,
 .cadHead {
 	display: flex;
 	justify-content: space-around;
@@ -488,17 +490,35 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-#btn-limpar {
+.btn-limpar {
 	background-color: #f1f1f1;
 	color: #333;
 }
-#btn-cancelar {
+.btn-cancelar {
 	background-color: #e74c3c;
 	color: white;
 }
-#btn-salvar {
+.btn-salvar {
 	background-color: #2ecc71;
 	color: white;
+}
+.modalEditBox.hidden {
+	display: none;
+}
+.modalEditBox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	display: flex;
+	height: 100vh;
+	/* - efeito blur pego no "glassmorphism css generator"*/
+	background: rgba(0, 0, 0, 0.18);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(1.9px);
+	-webkit-backdrop-filter: blur(1.9px);
+	align-items: center;
+	justify-content: center;
 }
 
 /* media queries para responsividade */
