@@ -20,9 +20,6 @@ btnCancel.addEventListener("click", () => {
 btnCadastrar.addEventListener("click", () => {
 	modalCad.classList.remove("hidden");
 });
-btnDeletar.addEventListener("click", () => {
-	modalDel.classList.remove("hidden");
-});
 
 //para o modal de deletar
 btnDelClose.addEventListener("click", () => {
@@ -30,4 +27,58 @@ btnDelClose.addEventListener("click", () => {
 });
 btnDelCancel.addEventListener("click", () => {
 	modalDel.classList.add("hidden");
+});
+
+const allBtnDelete = document.querySelectorAll(".btn-excluir");
+
+//quando qualquer dos botoes de delete produto forem clicados,
+//pegamos os atributos que eles contêm e alteramos o TEXTO dos campos para esses valores
+allBtnDelete.forEach((btn) => {
+	btn.addEventListener("click", () => {
+		const id = btn.getAttribute("data-id");
+		const nome = btn.getAttribute("data-nome");
+		const quantidade = btn.getAttribute("data-quantidade");
+		const sku = btn.getAttribute("data-sku");
+		const preco = btn.getAttribute("data-preco");
+
+		modalDel.querySelector("#nomeProd").textContent = nome;
+		modalDel.querySelector("#qtdProd").textContent = quantidade;
+		modalDel.querySelector("#skuProd").textContent = sku;
+		modalDel.querySelector("#precoProd").textContent = preco;
+
+		modalDel.dataset.id = id; // salva o id "escondido" para enviar ao backend
+
+		//exibe o modal de remoção
+		modalDel.classList.remove("hidden");
+	});
+});
+
+const btnConfirmDelete = modalDel.querySelector(".btn-del-excluir");
+btnConfirmDelete.addEventListener("click", () => {
+	//pega o id do produto que salvamos antes
+	const id = modalDel.dataset.id;
+
+	if (id) {
+		fetch(
+			`../../app/controllers/ProdutoController.php?action=delete&id=${id}`,
+			{
+				method: "POST",
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.success) {
+					alert("Produto excluído com sucesso!");
+					window.location.reload();
+				} else {
+					alert("Erro ao excluir produto");
+				}
+			})
+			.catch((error) => {
+				console.error("Erro na requisicao: ", error);
+				alert("Erro de conexao com o servidor. ");
+			});
+	} else {
+		alert("Nenhum produto selecionado para exclusão.");
+	}
 });

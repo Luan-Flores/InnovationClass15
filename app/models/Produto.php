@@ -48,8 +48,17 @@ class Produto {
     public function editar() {
         
     }
-    public function remover() {
-        
+    public function remover($id) {
+        try{
+            $sql = "DELETE FROM produtos WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return true;
+
+        }catch (PDOException $e){
+            echo "Erro ao listar produtos: " . $e->getMessage();
+            return false;
+        }
     }
 
 }

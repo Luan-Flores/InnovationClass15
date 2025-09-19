@@ -58,8 +58,8 @@ if (!isset($_SESSION['usuario'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($produtos)): ?>
-                    
+                <!-- looping no array com os produtos que vem do banco de dados, iteramos sobre eles e exibimos na GRID cada um -->
+                <?php if (!empty($produtos)): ?>    
                     <?php foreach ($produtos as $p): ?>
                     <tr>
                         <td><?= htmlspecialchars($p['nome']) ?></td>
@@ -67,7 +67,14 @@ if (!isset($_SESSION['usuario'])) {
                         <td>R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
                         <td>
                             <button class="btn-editar"></button>
-                            <button class="btn-excluir" >Excluir</button>
+                            <!-- ainda no loop, passamos como atributo para o botao editar os valores dos produtos, para exibir no modal de edição as informações dinamicamente -->
+                            <button data-id="<?= $p['id'] ?>" 
+                                data-nome="<?= htmlspecialchars($p['nome']) ?>" 
+                                data-sku="<?= htmlspecialchars($p['sku']) ?>" 
+                                data-quantidade="<?= htmlspecialchars($p['quantidade']) ?>" 
+                                data-preco="<?= number_format($p['preco'], 2, ',', '.') ?>" 
+                                class="btn-excluir" >Excluir
+                            </button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -86,21 +93,22 @@ if (!isset($_SESSION['usuario'])) {
                         </button>
                     </div>
                     <div class="cadMiddle">
-                        <form class="formModel" action="" method="post">
+                        <form class="formModel" id="formModel" action="../controllers/ProdutoController.php?action=add" method="post">
+                            <!-- required em todos os input, como são poucas informaçoes, optei por deixar obrigatório, também segue a estrutura do banco (NOT NULL) -->
                             <label for="Nome">Nome do Produto</label>
-                            <input type="text" name="nome">
+                            <input type="text" name="nome" required>
                             <div class="form-mid">
                                 <div class="form-mid-1">
                                     <label for="sku">SKU</label>
-                                    <input type="text" name="sku">
+                                    <input type="text" name="sku" required>
                                     <label for="categoria">Categoria</label>
-                                    <input type="text" name="categoria">
+                                    <input type="text" name="categoria" required>
                                 </div>
                                 <div class="form-mid-2">
                                     <label for="preco">Preço</label>
-                                    <input type="text" name="preco">
+                                    <input type="text" name="preco" required>
                                     <label for="estoque">Quantidade em Estoque</label>
-                                    <input type="text" name="quantidade">
+                                    <input type="text" name="quantidade" required>
                                 </div>
                             </div>
                             <label for="fornecedor">Fornecedor</label>
@@ -113,7 +121,7 @@ if (!isset($_SESSION['usuario'])) {
                     <div class="cadEnd">
                         <button id="btn-limpar">Limpar</button>
                         <button id="btn-cancelar">Cancelar</button>
-                        <button id="btn-salvar">Salvar produto</button>
+                        <button form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
                     </div>
                 </div>
             </section>
@@ -132,19 +140,19 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="infoProd">
                             <div>
                                 <p>Produto</p>
-                                <p>Camiseta Básica Avanti</p>
+                                <p id="nomeProd">Nome do Produto</p>
                             </div>
                             <div>
                                 <p>Estoque</p>
-                                <p>100 Unidades</p>
+                                <p id="qtdProd">100 Unidades</p>
                             </div>
                             <div>
                                 <p>SKU</p>
-                                <p>ABC-221</p>
+                                <p id="skuProd">ABC-221</p>
                             </div>
                             <div>
                                 <p>Preço</p>
-                                <p>R$99,90</p>
+                                <p id="precoProd">R$99,90</p>
                             </div>
                         </div>
                         <div class="permaAviso">
