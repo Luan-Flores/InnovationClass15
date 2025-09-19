@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
@@ -30,10 +33,10 @@ if (!isset($_SESSION['usuario'])) {
                     <img src="../../public/imagens/logout.png" alt="Sair">
                     <p>Sair</p>
                 </a>
-                </div>
+            </div>
         </div>
     </header>
-
+    
     <div class="produtos-header">
         <h1>Produtos</h1>
         <div class="right">
@@ -44,7 +47,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
     <section class="middle">
-
+        
         <table border="1" cellpadding="8">
             <thead>
                 <tr>
@@ -53,18 +56,18 @@ if (!isset($_SESSION['usuario'])) {
                     <th>Preço</th>
                     <th>Ações</th>
                 </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($produtos)): ?>
-                
-                <?php foreach ($produtos as $p): ?>
+            </thead>
+            <tbody>
+                <?php if (!empty($produtos)): ?>
+                    
+                    <?php foreach ($produtos as $p): ?>
                     <tr>
                         <td><?= htmlspecialchars($p['nome']) ?></td>
                         <td><?= htmlspecialchars($p['quantidade']) ?></td>
                         <td>R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
                         <td>
-                            <a class="btn-editar" href="../controllers/ProdutoController.php?action=editar&id=<?= $p['id'] ?>">Editar</a>
-                            <a class="btn-excluir" href="../controllers/ProdutoController.php?action=excluir&id=<?= $p['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                            <button class="btn-editar"></button>
+                            <button class="btn-excluir" >Excluir</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -74,42 +77,87 @@ if (!isset($_SESSION['usuario'])) {
                     </tbody>
                 </table>
             </section>
-            <section class="modalCadBox">
+            <section class="modalCadBox hidden">
                 <div class="modalCad">
                     <div class="cadHead">
                         <h1>Adicionar Produto</h1>
                         <button class="btn-close">
-                            <img src="../../public/imagens/addIcon.png" alt="">
+                            <img src="../../public/imagens/close.png" alt="">
                         </button>
                     </div>
                     <div class="cadMiddle">
-                        <form action="" method="post">
+                        <form class="formModel" action="" method="post">
                             <label for="Nome">Nome do Produto</label>
                             <input type="text" name="nome">
                             <div class="form-mid">
-                                <label for="sku">SKU</label>
-                                <input type="text" name="sku">
-                                <label for="categoria">Categoria</label>
-                                <input type="text" name="categoria">
-                                <label for="preco">Preço</label>
-                                <input type="text" name="preco">
-                                <label for="estoque">Quantidade em Estoque</label>
-                                <input type="text" name="quantidade">
+                                <div class="form-mid-1">
+                                    <label for="sku">SKU</label>
+                                    <input type="text" name="sku">
+                                    <label for="categoria">Categoria</label>
+                                    <input type="text" name="categoria">
+                                </div>
+                                <div class="form-mid-2">
+                                    <label for="preco">Preço</label>
+                                    <input type="text" name="preco">
+                                    <label for="estoque">Quantidade em Estoque</label>
+                                    <input type="text" name="quantidade">
+                                </div>
                             </div>
                             <label for="fornecedor">Fornecedor</label>
                             <input type="text" name="fornecedor">
                             <label for="descricao">Descrição</label>
-                            <input type="text" name="descricao">
-                            <p>Inclua informações como material, dimensões ou cuidados.</p>
+                            <textarea type="text" id="inputDesc" name="descricao"></textarea>
+                            <p id="p-desc">Inclua informações como material, dimensões ou cuidados.</p>
                         </form>
                     </div>
                     <div class="cadEnd">
-                        <button>Limpar</button>
-                        <button>Cancelar</button>
-                        <button>Salvar produto</button>
+                        <button id="btn-limpar">Limpar</button>
+                        <button id="btn-cancelar">Cancelar</button>
+                        <button id="btn-salvar">Salvar produto</button>
                     </div>
                 </div>
             </section>
-
-</body>
-</html>
+            <section class="modalDelBox hidden">
+                <div class="modalDel">
+                    <div class="delHead">
+                        <h1>Excluir  Produto</h1>
+                        <button class="btn-del-close">
+                            <img src="../../public/imagens/close.png" alt="">
+                        </button>
+                    </div>
+                    <div class="delMiddle">
+                        <p id="certeza">
+                            Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.
+                        </p>
+                        <div class="infoProd">
+                            <div>
+                                <p>Produto</p>
+                                <p>Camiseta Básica Avanti</p>
+                            </div>
+                            <div>
+                                <p>Estoque</p>
+                                <p>100 Unidades</p>
+                            </div>
+                            <div>
+                                <p>SKU</p>
+                                <p>ABC-221</p>
+                            </div>
+                            <div>
+                                <p>Preço</p>
+                                <p>R$99,90</p>
+                            </div>
+                        </div>
+                        <div class="permaAviso">
+                            <p>Essa é uma ação permanente!</p>
+                        </div>
+                    </div>
+                    <div class="delEnd">
+                        <button class="btn-del-cancel">Cancelar</button>
+                        <button class="btn-del-excluir">Excluir Produto</button>
+                    </div>
+                </div>
+            </section>
+            
+            <script src="../../public/js/estoque.js"></script>
+        </body>
+        </html>

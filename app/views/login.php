@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (isset($_SESSION['usuario'])) {
     header("Location: ./estoque.php");
     exit;
@@ -11,6 +14,7 @@ if (isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LFStock</title>
     <link rel="stylesheet" href="../../public/css/login.css">
+    <link rel="shortcut icon" href="../../public/imagens/stockLogo.png" type="image/x-icon">
 </head>
 <body>
     <section id="mainSec">
@@ -38,6 +42,7 @@ if (isset($_SESSION['usuario'])) {
                      <div id="error-message">
                         <p><?php echo $_SESSION['erro'] ?></p>
                     </div>
+                    <?php  unset($_SESSION['erro'])?>
                 <?php endif; ?>
                 
                
