@@ -211,12 +211,15 @@ btnConfirmDelete.addEventListener("click", () => {
 
 const searchBar = document.getElementById("searchBar");
 const tr = document.getElementsByTagName("tr");
+const colNome = document.getElementById("th-nome");
 
 searchBar.addEventListener("input", () => {
 	const pesquisa = searchBar.value.toLowerCase();
 	for (elem of tr) {
 		const campoTitulo = elem.firstElementChild;
 		if (!campoTitulo) continue; //para ignorar as linhas sem o td
+
+		if (campoTitulo === colNome) continue; // ignorar a coluna NOME para nao ser destacada como os produtos
 
 		const nomeProd = campoTitulo.textContent;
 

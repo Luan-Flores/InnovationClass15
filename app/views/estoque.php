@@ -52,13 +52,13 @@ if (!isset($_SESSION['usuario'])) {
         <table border="1" cellpadding="8">
             <thead>
                 <tr>
-                    <th>Nome</th>
+                    <th id="th-nome">Nome</th>
                     <th>Quantidade</th>
                     <th>Preço</th>
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id='tbody'>
                 <!-- looping no array com os produtos que vem do banco de dados, iteramos sobre eles e exibimos na GRID cada um -->
                 <?php if (!empty($produtos)): ?>    
                     <?php foreach ($produtos as $p): ?>
