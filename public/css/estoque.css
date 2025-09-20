@@ -448,6 +448,7 @@ body {
 		transition: background-color 0.3s ease;
 	}
 }
+.editEnd,
 .cadEnd {
 	margin-top: 20px;
 	display: flex;
@@ -470,7 +471,7 @@ body {
 		border-radius: 10px;
 	}
 }
-#inputDesc {
+.inputDesc {
 	height: 120px;
 	padding: 8px;
 	border: 1.6px solid #cdcdcd;
@@ -498,6 +499,7 @@ body {
 	background-color: #e74c3c;
 	color: white;
 }
+.btn-salvar-edit,
 .btn-salvar {
 	background-color: #2ecc71;
 	color: white;

@@ -45,9 +45,18 @@ class Produto {
             return false;
         }
     }
-    public function editar() {
-        
+    public function editar($id, $dados) {
+        try{
+            $sql = "UPDATE produtos SET nome = ?, categoria = ?, quantidade = ?, preco = ?, sku = ?, fornecedor = ?, descricao = ?  WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $params = [$dados['nome'], $dados['categoria'], $dados['quantidade'], $dados['preco'], $dados['sku'], $dados['fornecedor'], $dados['descricao'], $id];
+            return $stmt->execute($params);
+        }catch (PDOException $e){
+            echo "Erro ao editar produtos: " . $e->getMessage();
+            return false;
+        }
     }
+
     public function remover($id) {
         try{
             $sql = "DELETE FROM produtos WHERE id = ?";

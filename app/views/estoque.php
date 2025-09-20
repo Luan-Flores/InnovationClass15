@@ -101,7 +101,7 @@ if (!isset($_SESSION['usuario'])) {
                         </button>
                     </div>
                     <div class="cadMiddle">
-                        <form class="formModel" id="formModel" action="../controllers/ProdutoController.php?action=add" method="post">
+                        <form class="formModel" id="formModel" >
                             <!-- required em todos os input, como são poucas informaçoes, optei por deixar obrigatório, também segue a estrutura do banco (NOT NULL) -->
                             <label for="Nome">Nome do Produto</label>
                             <input type="text" name="nome" required>
@@ -114,20 +114,20 @@ if (!isset($_SESSION['usuario'])) {
                                 </div>
                                 <div class="form-mid-2">
                                     <label for="preco">Preço</label>
-                                    <input type="text" name="preco" required>
+                                    <input type="number" name="preco" required>
                                     <label for="estoque">Quantidade em Estoque</label>
-                                    <input type="text" name="quantidade" required>
+                                    <input type="number" name="quantidade" required>
                                 </div>
                             </div>
                             <label for="fornecedor">Fornecedor</label>
                             <input type="text" name="fornecedor">
                             <label for="descricao">Descrição</label>
-                            <textarea type="text" id="inputDesc" name="descricao"></textarea>
+                            <textarea type="text" class="inputDesc" name="descricao"></textarea>
                             <p id="p-desc">Inclua informações como material, dimensões ou cuidados.</p>
                         </form>
                     </div>
                     <div class="cadEnd">
-                        <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                        <button class="btn-limpar-cad" id="btn-limpar">Limpar</button>
                         <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
                         <button class="btn-salvar" form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
                     </div>
@@ -137,12 +137,12 @@ if (!isset($_SESSION['usuario'])) {
                 <div class="modalEdit">
                     <div class="editHead">
                         <h1>Editar Produto</h1>
-                        <button class="btn-close">
+                        <button class="btn-close" id="btn-edit-close">
                             <img src="../../public/imagens/close.png" alt="">
                         </button>
                     </div>
                     <div class="editMiddle">
-                        <form class="formModel" id="editFormModel" action="../controllers/ProdutoController.php?action=edit" method="patch">
+                        <form class="formModel" id="editFormModel">
                             <!-- required em todos os input, como são poucas informaçoes, optei por deixar obrigatório, também segue a estrutura do banco (NOT NULL) -->
                             <label for="Nome">Nome do Produto</label>
                             <input type="text" id="nomeProd" name="nome" required>
@@ -155,22 +155,22 @@ if (!isset($_SESSION['usuario'])) {
                                 </div>
                                 <div class="form-mid-2">
                                     <label for="preco">Preço</label>
-                                    <input id="precoProd" type="text" name="preco" required>
+                                    <input id="precoProd" type="number" name="preco" required>
                                     <label for="estoque">Quantidade em Estoque</label>
-                                    <input id="quantidadeProd" type="text" name="quantidade" required>
+                                    <input id="quantidadeProd" type="number" name="quantidade" required>
                                 </div>
                             </div>
                             <label for="fornecedor">Fornecedor</label>
-                            <input id="fornecedorProd" type="text" name="fornecedor">
+                            <input id="fornecedorProd" type="text" name="fornecedor" required>
                             <label for="descricao">Descrição</label>
-                            <textarea type="text" id="inputDescEdit" name="descricao"></textarea>
+                            <textarea type="text" id="inputDescEdit" class="inputDesc" name="descricao" required></textarea>
                             <p id="p-desc">Inclua informações como material, dimensões ou cuidados.</p>
                         </form>
                     </div>
                     <div class="editEnd">
-                        <button class="btn-limpar" id="btn-limpar">Limpar</button>
-                        <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
-                        <button class="btn-salvar" form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
+                        <button class="btn-limpar-edit" id="btn-limpar">Limpar</button>
+                        <button class="btn-cancelar" id="btn-edit-cancelar">Cancelar</button>
+                        <button class="btn-salvar-edit" form="formModel" id="btn-salvar" type="submit">Salvar produto</button>
                     </div>
                 </div>
             </section>

@@ -1,9 +1,25 @@
 <?php
 session_start();
+
+// se não existir sessão de usuário, bloqueia o acesso
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php"); // redireciona para a tela de login
+    exit;
+}
+session_start();
 require_once "../models/Produto.php";
 
 class ProdutoController {
     public function index() {
+    
+        session_start();
+
+        // bloqueia usuario sem login
+        if (!isset($_SESSION['usuario_id'])) {
+            header("Location: login.php"); 
+            exit;
+        }
+
         $prod = new Produto;
         $produtos = $prod->listarTodos();
         
@@ -34,6 +50,29 @@ class ProdutoController {
             exit;
         }
     }
+    public function editar(){
+        if ($_SERVER['REQUEST_METHOD'] === 'PUT'){
+            $id = $_GET['id'] ?? null;
+
+            // pegar o JSON cru e transformar em array
+            $json = file_get_contents('php://input'); //veio no body da requisiçao
+            $dados = json_decode($json, true); //pega os dados em json e transforma em um objeto associativo para o php manipular
+
+            if ($id && $dados){
+                $prod = new Produto;
+                $ok = $prod->editar($id, $dados);
+
+                header('Content-Type: application/json');
+                echo json_encode(['success' => $ok]);
+                exit;
+            } else {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'error' => "Id ou dados inválidos"]);
+                exit;
+            }
+        }
+    }
+
     public function remover(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST['id'] ?? $_GET['id'] ?? null;
@@ -51,6 +90,7 @@ class ProdutoController {
             }
         }
     }
+    
 }
 
 if (isset($_GET['action'])) {
@@ -63,6 +103,9 @@ if (isset($_GET['action'])) {
     }
     if ($_GET['action'] === 'add'){
         $controller->adicionar();
+    }
+    if ($_GET['action'] === 'edit'){       
+        $controller->editar();
     }
     if ($_GET['action'] === 'delete'){       
         $controller->remover();

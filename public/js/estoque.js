@@ -6,9 +6,11 @@ const btnClose = document.querySelector(".btn-close");
 const btnDelClose = document.querySelector(".btn-del-close");
 const btnDelCancel = document.querySelector(".btn-del-cancel");
 const btnCancel = document.querySelector("#btn-cancelar");
+const btnEditCancelar = document.querySelector("#btn-edit-cancelar");
 const btnCadastrar = document.querySelector(".add-button");
 const btnDeletar = document.querySelector(".btn-excluir");
 const btnEdit = document.querySelector(".btn-editar");
+const btnEditClose = document.querySelector("#btn-edit-close");
 
 btnClose.addEventListener("click", () => {
 	// adicionando a classe 'hidden' ao modalCad (para esconder ao clicar no fechar ou cancelar)
@@ -16,6 +18,9 @@ btnClose.addEventListener("click", () => {
 });
 btnCancel.addEventListener("click", () => {
 	modalCad.classList.add("hidden");
+});
+btnEditCancelar.addEventListener("click", () => {
+	modalEdit.classList.add("hidden");
 });
 
 //aqui remove a classe hidden (ao clicar no botao "adicionar produto")
@@ -26,9 +31,12 @@ btnEdit.addEventListener("click", () => {
 	modalEdit.classList.remove("hidden");
 });
 
-//para o modal de deletar
+//para fechar os modais (botão em X)
 btnDelClose.addEventListener("click", () => {
 	modalDel.classList.add("hidden");
+});
+btnEditClose.addEventListener("click", () => {
+	modalEdit.classList.add("hidden");
 });
 btnDelCancel.addEventListener("click", () => {
 	modalDel.classList.add("hidden");
@@ -38,6 +46,7 @@ const allBtnEdit = document.querySelectorAll(".btn-editar");
 
 allBtnEdit.forEach((btn) => {
 	btn.addEventListener("click", () => {
+		console.log("CLICOU");
 		const id = btn.getAttribute("data-id");
 		const nome = btn.getAttribute("data-nome");
 		const quantidade = btn.getAttribute("data-quantidade");
@@ -54,13 +63,87 @@ allBtnEdit.forEach((btn) => {
 		modalEdit.querySelector("#quantidadeProd").defaultValue = quantidade;
 		modalEdit.querySelector("#fornecedorProd").defaultValue = fornecedor;
 		modalEdit.querySelector("#inputDescEdit").defaultValue = descricao;
+
+		modalEdit.dataset.id = id;
+
+		modalEdit.classList.remove("hidden");
 	});
+});
+
+//botao de limpar os campos do modal de edit
+const allBtnLimparEdit = document.querySelectorAll(".btn-limpar-edit");
+
+allBtnLimparEdit.forEach((btn) => {
+	btn.addEventListener("click", () => {
+		modalEdit.querySelector("#nomeProd").defaultValue = "";
+		modalEdit.querySelector("#skuProd").defaultValue = "";
+		modalEdit.querySelector("#precoProd").defaultValue = "";
+		modalEdit.querySelector("#categoriaProd").defaultValue = "";
+		modalEdit.querySelector("#quantidadeProd").defaultValue = "";
+		modalEdit.querySelector("#fornecedorProd").defaultValue = "";
+		modalEdit.querySelector("#inputDescEdit").defaultValue = "";
+	});
+});
+
+const btnSalvarEdit = modalEdit.querySelector(".btn-salvar-edit");
+btnSalvarEdit.addEventListener("click", () => {
+	const id = modalEdit.dataset.id;
+
+	// Pegar os valores dos inputs
+	const nome = modalEdit.querySelector("#nomeProd").value.trim();
+	const sku = modalEdit.querySelector("#skuProd").value.trim();
+	const preco = modalEdit.querySelector("#precoProd").value.trim();
+	const categoria = modalEdit.querySelector("#categoriaProd").value.trim();
+	const quantidade = modalEdit.querySelector("#quantidadeProd").value.trim();
+	const fornecedor = modalEdit.querySelector("#fornecedorProd").value.trim();
+	const descricao = modalEdit.querySelector("#inputDescEdit").value.trim();
+
+	// validação para nao enviar o edit com todos os campos vazios
+	if (!nome || !sku || !preco || !categoria || !quantidade || !fornecedor) {
+		alert("Todos os campos devem ser preenchidos antes de salvar.");
+		return; // bloqueia o fetch se tiver vazio
+	}
+
+	const produto = {
+		nome,
+		sku,
+		preco,
+		categoria,
+		quantidade,
+		fornecedor,
+		descricao,
+	};
+	// fetch na produtocontroller com a acao de editar passando o id e os valores dos inputs do produto editado
+	if (id) {
+		fetch(`../../app/controllers/ProdutoController.php?action=edit&id=${id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(produto),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.success) {
+					alert("Produto editado com sucesso!");
+					window.location.reload();
+				} else {
+					alert("Erro ao editar produto");
+				}
+			})
+			.catch((error) => {
+				console.error("Erro na requisicao: ", error);
+				alert("Erro de conexao com o servidor.");
+			});
+	} else {
+		alert("Nenhum produto selecionado para edição.");
+	}
 });
 
 const allBtnDelete = document.querySelectorAll(".btn-excluir");
 
 //quando qualquer dos botoes de delete produto forem clicados,
-//pegamos os atributos que eles contêm e alteramos o TEXTO dos campos para esses valores
+//pegamos os atributos que ele contêm e alteramos o TEXTO dos campos para esses valores
 allBtnDelete.forEach((btn) => {
 	btn.addEventListener("click", () => {
 		const id = btn.getAttribute("data-id");
@@ -78,6 +161,19 @@ allBtnDelete.forEach((btn) => {
 
 		//exibe o modal de remoção
 		modalDel.classList.remove("hidden");
+	});
+});
+
+//botao de limpar os campos do modal de cadastro
+const allBtnLimparCad = document.querySelectorAll(".btn-limpar-cad");
+
+allBtnLimparCad.forEach((btn) => {
+	btn.addEventListener("click", () => {
+		const inputCad = modalCad.querySelectorAll("input");
+		inputCad.forEach((inp) => {
+			inp.value = "";
+			modalCad.querySelector(".inputDesc").value = ""; //campo da descrição é diferente pois nao é input, e sim um textarea
+		});
 	});
 });
 
