@@ -34,7 +34,7 @@ Confirme que as tabelas (produtos, usuarios, etc.) foram criadas corretamente.
 
 *3. Ajustar credenciais de conexão - (Normalmente não precisa)*
 
-No arquivo de configuração (Produto.php ou config.php), ajuste se necessário:
+No arquivo de configuração (config.php), ajuste se necessário:
 
 $host = "localhost";
 
