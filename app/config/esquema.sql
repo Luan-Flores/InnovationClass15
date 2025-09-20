@@ -1,4 +1,4 @@
-CREATE DATABASE lfstock;
+CREATE DATABASE IF NOT EXISTS lfstock;
 USE lfstock;
 
 CREATE TABLE usuarios (

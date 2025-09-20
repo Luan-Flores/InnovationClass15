@@ -102,7 +102,7 @@ if (!isset($_SESSION['usuario'])) {
                         </button>
                     </div>
                     <div class="cadMiddle">
-                        <form class="formModel" id="formModel" >
+                        <form class="formModel" id="formModel" action="../controllers/ProdutoController.php?action=add" method="post">
                             <!-- required em todos os input, como são poucas informaçoes, optei por deixar obrigatório, também segue a estrutura do banco (NOT NULL) -->
                             <label for="Nome">Nome do Produto</label>
                             <input type="text" name="nome" required>
