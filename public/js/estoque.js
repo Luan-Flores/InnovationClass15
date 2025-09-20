@@ -206,3 +206,32 @@ btnConfirmDelete.addEventListener("click", () => {
 		alert("Nenhum produto selecionado para exclusão.");
 	}
 });
+
+//barra de pesquisa
+
+const searchBar = document.getElementById("searchBar");
+const tr = document.getElementsByTagName("tr");
+
+searchBar.addEventListener("input", () => {
+	const pesquisa = searchBar.value.toLowerCase();
+	for (elem of tr) {
+		const campoTitulo = elem.firstElementChild;
+		if (!campoTitulo) continue; //para ignorar as linhas sem o td
+
+		const nomeProd = campoTitulo.textContent;
+
+		if (pesquisa && nomeProd.toLowerCase().includes(pesquisa)) {
+			// expressão regular que pega o termo pesquisado
+			const regex = new RegExp(`(${pesquisa})`, "gi");
+
+			// envolve o trecho em <span> para destacar o fundo e a fonte
+			campoTitulo.innerHTML = nomeProd.replace(
+				regex,
+				`<span style="background-color: yellow; font-weight: bold;">$1</span>`
+			);
+		} else {
+			// volta ao normal se não tiver pesquisa
+			campoTitulo.innerHTML = nomeProd;
+		}
+	}
+});

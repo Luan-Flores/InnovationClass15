@@ -42,7 +42,7 @@ if (!isset($_SESSION['usuario'])) {
         <h1>Produtos</h1>
         <div class="right">
             <div class="search-container">
-                <input type="text" placeholder="Buscar por nome...">
+                <input type="text" id="searchBar" placeholder="Buscar por nome...">
             </div>
             <button class="add-button">Adicionar Produto</button>
         </div>
