@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: ./login.php");
     exit;
 }
 ?>
@@ -16,6 +16,7 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LFStock</title>
     <link rel="stylesheet" href="../../public/css/estoque.css">
+    <link rel="shortcut icon" href="../../public/imagens/stockLogo.png" type="image/x-icon">
 </head>
 <body>
     <header>

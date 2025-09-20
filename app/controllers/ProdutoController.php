@@ -1,22 +1,13 @@
 <?php
 session_start();
-
-// se não existir sessão de usuário, bloqueia o acesso
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php"); // redireciona para a tela de login
-    exit;
-}
-session_start();
 require_once "../models/Produto.php";
 
 class ProdutoController {
     public function index() {
-    
-        session_start();
 
-        // bloqueia usuario sem login
-        if (!isset($_SESSION['usuario_id'])) {
-            header("Location: login.php"); 
+        // se não existir sessão de usuário, bloqueia o acesso
+        if (!isset($_SESSION['usuario'])) {
+            header("Location: ../views/login.php"); // redireciona para a tela de login
             exit;
         }
 
